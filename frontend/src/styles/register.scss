@@ -1,0 +1,95 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.register-wrapper{
+    width: 100%;
+    height: auto;
+    background: url(../assets/register.jpg);
+    background-repeat: no-repeat;
+    background-size: cover;
+    background-position: center;
+    .register-container{
+        width: 100%;
+        height: auto;
+        max-width: 1440px;
+        margin: 0 auto;
+        display: flex;
+        justify-content: center;
+        padding: 1rem 0;
+        @media screen and (max-width:768px) {
+            padding: 1rem 1rem;
+        }
+        .register-content{
+            border-radius: 10px;
+            width: 70%;
+            height: auto;
+            background-color: rgba(255, 255, 255, 0.187);
+            backdrop-filter: blur(10px);
+            display: flex;
+            flex-direction: column;
+            justify-content: space-evenly;
+            align-items: center;
+            padding: 1rem 0;
+            @media screen and (max-width:768px) {
+                width: 100%;
+               
+            }
+            .register-heading{
+                padding-bottom: 2rem ;
+                h3{
+                    font-size: 3rem;
+                    font-weight: 700;
+                    @media screen and (max-width:768px) {
+                        font-size: 1rem;
+                    }
+                    span{
+                        color: #ee1c46;
+                    }
+                }
+            }
+            form{
+                display: flex;
+                flex-direction: column;
+                justify-content: center;
+                align-items: center;
+                gap: 1rem;
+                .input-wrapper{
+                    display: flex;
+                    flex-direction: column;
+                    label{
+                        font-size: 1.2rem;
+                    }
+                    input{
+                        width: 50rem;
+                        height:3rem;
+                        border-radius: 6px;
+                        padding: 0 1rem;
+                        @media screen and (max-width:768px) {
+                            width: 20rem;
+                        }
+                        &::placeholder{
+                            color: #ee1c464b;
+                        }
+                        &:focus{
+                          outline: 2px solid #ee1c464b;
+                        }
+                    }
+                }
+                button{
+                    width: 6rem;
+                    border-radius: 6px;
+                    height: 3rem;
+                    font-size: 600;
+                    background-color: #EE1C47;
+                    color: white;
+                    &:hover{
+                        background-color: red;
+                    }
+                }
+            }
+        }
+    }
+}
