@@ -14,9 +14,28 @@ import {
   MenuItem,
   MenuDivider,
   Button,
-} from '@chakra-ui/react'
-import {Link} from 'react-router-dom'
+} from "@chakra-ui/react";
+import { Link } from "react-router-dom";
+import { useSelector } from "react-redux";
+import { useDispatch } from "react-redux";
+import { logOutUser } from "../../store/slices/UserSlice";
+import { useToast } from "@chakra-ui/react";
 const Navbar = () => {
+   const toast = useToast();
+  const userData = useSelector((state) => {
+    return state.users;
+  });
+  const dispatch = useDispatch()
+  const logOut =()=>{
+    dispatch(logOutUser())
+    localStorage.removeItem('loginDetails')
+    toast({
+      title: "You are logged out",
+          status: "success",
+          duration: 3000,
+          isClosable: true,
+    })
+  }
   return (
     <nav>
       <div className="nav-wrapper">
@@ -37,21 +56,37 @@ const Navbar = () => {
             </div>
             <div className="nav-menu">
               <Menu>
-                <MenuButton style={{background:"transparent"}} as={Button}>
-              <FaUserAlt
-                style={{
-                  color: "#676C7B",
-                  cursor: "pointer",
-                  fontSize: "1.2rem",
-                }}
-              ></FaUserAlt>
+                <MenuButton style={{ background: "transparent" }} as={Button}>
+                  <FaUserAlt
+                    style={{
+                      color: "#676C7B",
+                      cursor: "pointer",
+                      fontSize: "1.2rem",
+                    }}
+                  ></FaUserAlt>
                 </MenuButton>
-                <MenuList>
-                <Link to={'/register'}><MenuItem>Register</MenuItem></Link>
-                  <MenuDivider></MenuDivider>
-                <Link to={'/login'}><MenuItem>Login</MenuItem></Link>
-                  
-                </MenuList>
+                {!userData.token ? (
+                  <>
+                    <MenuList>
+                      <Link to={"/register"}>
+                        <MenuItem>Register</MenuItem>
+                      </Link>
+                      <MenuDivider></MenuDivider>
+                      <Link to={"/login"}>
+                        <MenuItem>Login</MenuItem>
+                      </Link>
+                    </MenuList>
+                  </>
+                ) : (
+                  <>
+                    <MenuList>
+                      <Link to={"/"}>
+                        <MenuItem onClick={logOut}>LogOut</MenuItem>
+                      </Link>
+                      
+                    </MenuList>
+                  </>
+                )}
               </Menu>
               <FaRegHeart
                 style={{

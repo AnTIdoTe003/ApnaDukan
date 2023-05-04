@@ -4,6 +4,8 @@ import login from "../../assets/login.jpg";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
 import { useNavigate } from "react-router-dom";
+import { useDispatch } from "react-redux";
+import { logInUser } from "../../store/slices/UserSlice";
 const Login = () => {
   const [loginData, setLoginData] = useState({
     email: "",
@@ -11,7 +13,7 @@ const Login = () => {
   });
   const navigate = useNavigate();
   const toast = useToast();
-
+  const dispatch = useDispatch()
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -29,9 +31,18 @@ const Login = () => {
         });
          navigate('/')
          setLoginData({})
+         dispatch(logInUser(data))
+         localStorage.setItem('loginDetails', JSON.stringify(data.token))
       }
+      
     } catch (error) {
-      console.log(error);
+      // console.log(error)
+      toast({
+          title: "User does not exist",
+          status: "error",
+          duration: 3000,
+          isClosable: true,
+        });
     }
   };
   return (
