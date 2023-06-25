@@ -1,0 +1,25 @@
+*{
+    margin: 0;
+    padding: 0;
+    box-sizing: border-box;
+}
+
+.spinner-wrapper{
+    width: 100%;
+    background-color: white;
+    .spinner-container{
+        margin: 0 auto;
+        max-width: 1440px;
+        width: 100%;
+        .spinner-content{
+            width: 100%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            display: flex;
+            flex-direction: column;
+            height: 70vh;
+            gap: 1rem;
+        }
+    }
+}

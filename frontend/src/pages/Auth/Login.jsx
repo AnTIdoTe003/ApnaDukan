@@ -3,17 +3,18 @@ import "../../styles/login.scss";
 import login from "../../assets/login.jpg";
 import axios from "axios";
 import { useToast } from "@chakra-ui/react";
-import { useNavigate } from "react-router-dom";
-import { useDispatch } from "react-redux";
-import { logInUser } from "../../store/slices/UserSlice";
+import { useLocation, useNavigate } from "react-router-dom";
+import { useAuth } from "../../context/auth";
 const Login = () => {
+  const [auth, setAuth] = useAuth()
+
   const [loginData, setLoginData] = useState({
     email: "",
     password: "",
   });
   const navigate = useNavigate();
+  const location = useLocation()
   const toast = useToast();
-  const dispatch = useDispatch()
   const handleSubmit = async (e) => {
     e.preventDefault();
     try {
@@ -29,12 +30,11 @@ const Login = () => {
           duration: 3000,
           isClosable: true,
         });
-         navigate('/')
+        setAuth({...auth, user: data.existUser, token:data.token})
+         navigate(location.state || '/')
          setLoginData({})
-         dispatch(logInUser(data))
-         localStorage.setItem('loginDetails', JSON.stringify(data.token))
+         localStorage.setItem('loginDetails', JSON.stringify(data))
       }
-      
     } catch (error) {
       // console.log(error)
       toast({
@@ -79,7 +79,10 @@ const Login = () => {
                   type="password"
                 />
               </div>
+              <div style={{display:'flex', alignItems:"center", gap:"2rem"}}>
               <button type="submit">Submit</button>
+              <button style={{width:"7rem"}} type="submit" onClick={()=>{navigate('/forgot-password')}}>Forgot Password?</button>
+              </div>
             </form>
           </div>
         </div>

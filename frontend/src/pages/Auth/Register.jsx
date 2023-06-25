@@ -11,6 +11,7 @@ const Register = () => {
     phone: "",
     password: "",
     confirmPassword: "",
+    answer: "",
   });
   const navigate = useNavigate()
   const toast = useToast();
@@ -118,6 +119,22 @@ const Register = () => {
                     })
                   }
                   type="password"
+                />
+              </div>
+              <div className="input-wrapper">
+                <label htmlFor="">
+                  Enter your secret answer to reset the password
+                </label>
+                <input
+                  value={registerData.answer}
+                  onChange={(e) =>
+                    setRegisterData({
+                      ...registerData,
+                      answer: e.target.value,
+                    })
+                  }
+                  placeholder="What is the name of your Pet"
+                  type="text"
                 />
               </div>
               <button type="submit">Submit</button>

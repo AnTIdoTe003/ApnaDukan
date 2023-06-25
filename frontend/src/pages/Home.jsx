@@ -1,21 +1,17 @@
 import React, { useState } from 'react'
-import { useSelector } from 'react-redux'
+import { useAuth } from '../context/auth'
+
 
 const Home = () => {
-  const userData = useSelector((state)=>{
-    return state.users
-  })
-  const [userName, setUserName] = useState('user')
+  const [auth, setAuth] = useAuth()
   
   // console.log(userData.user.name)
   return (
     <>
-    <div>Welcome </div>
-    <h1>{(userData.token)?userData.user.name:userName}</h1>
-
+      <div>Welcome </div>
+      {auth.user.name? <h1>{auth.user.name}</h1>: <h1>User</h1>}
     </>
-    
-  )
+  );
 }
 
 export default Home
